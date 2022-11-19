@@ -20,7 +20,7 @@ load_dotenv(dotenv_path)
 # Init app
 app = Flask(__name__)
 cors = CORS(app)
-# cors = CORS(app, resources={"*": {"origins": ["https://provo.dscdut.com"]}})
+cors = CORS(app, resources={"*": {"origins": ["https://provo.dscdut.com"]}})
 app.config['CORS_HEADERS'] = 'Content-Type'
 
 def delete():
