@@ -29,7 +29,6 @@ def delete():
     supabase = create_client(url, key)
     supabase.table("voucher").delete().neq("id", -1).execute()
 
-
 @app.route("/api/v1/update_voucher", methods=['GET'])
 def update_voucher():
     url = os.environ.get("SUPABASE_URL")
@@ -146,6 +145,11 @@ def get_voucher():
         "data": data_entries,
         "num_records": len(data_entries)
     }
+
+
+@app.route("/api/v1/cronjob", methods=['POST'])
+def wake_up():
+    return {}
 
 if __name__ == "__main__":
     update_voucher()
