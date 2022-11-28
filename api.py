@@ -11,7 +11,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from bs4 import BeautifulSoup
 import requests
-import chromedriver_autoinstaller
+# import chromedriver_autoinstaller
 
 # Set up env
 dotenv_path = join(dirname(__file__), '.env')
@@ -39,7 +39,7 @@ def update_voucher():
     types = ['Tiki', 'Lazada', 'Sendo', 'Grab', 'Nguyen-Kim', 'Fahasha', 'Now', "Shopee"]
     for type_ in types:
         if type_ == "Shopee":
-            chromedriver_autoinstaller.install()
+            # chromedriver_autoinstaller.install()
             option = Options()
             option.add_argument("--start-maximized")
             option.add_argument("--headless")
