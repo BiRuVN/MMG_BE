@@ -5,13 +5,13 @@ from os.path import join, dirname
 from dotenv import load_dotenv
 from supabase import create_client
 import json
-from time import sleep
+import time
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from bs4 import BeautifulSoup
 import requests
-# import chromedriver_autoinstaller
+import chromedriver_autoinstaller
 
 # Set up env
 dotenv_path = join(dirname(__file__), '.env')
@@ -34,12 +34,13 @@ def update_voucher():
     url = os.environ.get("SUPABASE_URL")
     key = os.environ.get("SUPABASE_SECRET_KEY")
     supabase = create_client(url, key)
-    supabase.table("voucher").delete().neq("id", -1).execute()
+    # supabase.table("voucher").delete().neq("id", -1).execute()
     success, fail = 0, 0
-    types = ['Tiki', 'Lazada', 'Sendo', 'Grab', 'Nguyen-Kim', 'Fahasha', 'Now', "Shopee"]
+    types = ['Tiki', 'Lazada', 'Sendo', 'Grab', 'Nguyen-Kim', 'Fahasha', 'Now']
+    types = ["Shopee"]
     for type_ in types:
         if type_ == "Shopee":
-            # chromedriver_autoinstaller.install()
+            chromedriver_autoinstaller.install()
             option = Options()
             option.add_argument("--start-maximized")
             option.add_argument("--headless")
@@ -51,7 +52,7 @@ def update_voucher():
             option.add_argument('--disable-extensions')
             driver = webdriver.Chrome(options=option)
             driver.get("https://www.shopeeanalytics.com/vn/ma-giam-gia.html")
-            sleep(3)
+            # time.sleep(3)
             html = driver.page_source
             soup = BeautifulSoup(html, "html.parser")
             driver.quit()
@@ -152,5 +153,7 @@ def wake_up():
     return {}
 
 if __name__ == "__main__":
+    st = time.time()
     update_voucher()
+    print(time.time() - st)
     # delete()
